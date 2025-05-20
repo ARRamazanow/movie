@@ -2,8 +2,8 @@ import { categoriesList } from "../components/categoriesList.js";
 import { PageTemplate } from "../templates/PageTemplate.js";
 
 export class PageHome extends PageTemplate {
-    constructor() {
-        super();
+    constructor(req) {
+        super(req);
         this.activeMenuIndex = 0;
     }
 

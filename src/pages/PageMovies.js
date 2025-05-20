@@ -4,8 +4,7 @@ import { PageTemplate } from "../templates/PageTemplate.js";
 
 export class PageMovies extends PageTemplate {
     constructor(req) {
-        super();
-        this.req = req;
+        super(req);
         this.activeMenuIndex = 1;
     }
 
@@ -13,11 +12,11 @@ export class PageMovies extends PageTemplate {
         let HTML = '';
 
         for (const item of moviesData) {
-            if (item.category === category || category === 'All movies') {
+            if (item.category.toLowerCase() === category || category === '') {
                 HTML += `
                     <div class="col">
                         <div class="card shadow-sm">
-                            <img src="/img/${item.thumbnail}" class="card-img-top" style="height: 225px;">
+                            <img src="/img/movie-thumbnails/${item.thumbnail}" class="movie-card-thumbnail card-img-top" style="height: 225px;">
                             <div class="card-body">
                                 <a href="/movies/${item.slug}" class="h4">${item.title}</a>
                                 <p class="card-text">${item.description}</p>
@@ -71,7 +70,7 @@ export class PageMovies extends PageTemplate {
                         </div>
                     </div>
                 </div>
-                ${this.moviesList(title)}
+                ${this.moviesList(category)}
             </main>`;
     }
 }

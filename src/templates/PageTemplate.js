@@ -1,6 +1,8 @@
 export class PageTemplate {
-    constructor() {
+    constructor(req) {
+        this.req = req;
         this.activeMenuIndex = -1;
+        this.pageJS = '';
     }
 
     head() {
@@ -16,17 +18,27 @@ export class PageTemplate {
                 <meta name="apple-mobile-web-app-title" content="Projekto pavadinimas" />
                 <link rel="manifest" href="/favicon/site.webmanifest" />
                 <link rel="stylesheet" href="/css/bootstrap.min.css">
+                <link rel="stylesheet" href="/css/custom.css">
             </head>`;
     }
 
     header() {
-        const menu = [
+        const userIsLoggedIn = this.req.headers.cookie !== undefined;
+
+        const publicMenu = [
             { href: '/', text: 'Home' },
             { href: '/movies', text: 'Movies' },
             { href: '/movies-by-category', text: 'Categories' },
+        ];
+        const authMenu = [
             { href: '/login', text: 'Login' },
             { href: '/register', text: 'Register' },
         ];
+        const userMenu = [
+            { href: '/dashboard', text: 'Dashboard' },
+            { href: '/logout', text: 'Logout' },
+        ];
+        const menu = publicMenu.concat(userIsLoggedIn ? userMenu : authMenu);
 
         let menuHTML = '';
 
@@ -85,6 +97,14 @@ export class PageTemplate {
             </div>`;
     }
 
+    script() {
+        if (this.pageJS) {
+            return `<script src="/js/${this.pageJS}.js"></script>`;
+        } else {
+            return '';
+        }
+    }
+
     render() {
         return `
             <!DOCTYPE html>
@@ -94,7 +114,7 @@ export class PageTemplate {
                 ${this.header()}
                 ${this.main()}
                 ${this.footer()}
-                <script src="/js/main.js"></script>
+                ${this.script()}
             </body>
             </html>`;
     }

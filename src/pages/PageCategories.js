@@ -3,8 +3,7 @@ import { PageTemplate } from "../templates/PageTemplate.js";
 
 export class PageCategories extends PageTemplate {
     constructor(req) {
-        super();
-        this.req = req;
+        super(req);
         this.activeMenuIndex = 2;
     }
 
