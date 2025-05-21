@@ -64,7 +64,7 @@ export class PageTemplate {
             </div>`;
     }
 
-    main() {
+    async main() {
         return '<main>DEMO CONTENT</main>';
     }
 
@@ -105,14 +105,14 @@ export class PageTemplate {
         }
     }
 
-    render() {
+    async render() {
         return `
             <!DOCTYPE html>
             <html lang="en">
             ${this.head()}
             <body>
                 ${this.header()}
-                ${this.main()}
+                ${await this.main()}
                 ${this.footer()}
                 ${this.script()}
             </body>

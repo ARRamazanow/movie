@@ -5,7 +5,7 @@ export class Page404 extends PageTemplate {
         super(req);
     }
 
-    main() {
+    async main() {
         return `
             <main>
                 <div class="container">

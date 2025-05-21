@@ -6,7 +6,7 @@ export class PageLogout extends PageTemplate {
         this.pageJS = 'logout';
     }
 
-    main() {
+    async main() {
         return `
             <main>
                 <div class="container">
