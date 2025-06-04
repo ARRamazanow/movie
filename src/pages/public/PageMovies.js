@@ -1,4 +1,4 @@
-import { getAllMovies } from "../../db/getAllMovies.js";
+import { getAllMovies } from "../../db/public/movies.js";
 import { formatMovieDuration } from "../../lib/formatMovieDuration.js";
 import { PageTemplate } from "../../templates/PageTemplate.js";
 
@@ -14,10 +14,12 @@ export class PageMovies extends PageTemplate {
         const moviesData = await getAllMovies();
 
         for (const item of moviesData) {
+            const img = item.thumbnail ? `/img/movie-thumbnails/${item.thumbnail}` : '/img/default.webp';
+
             HTML += `
                 <div class="col">
                     <div class="card shadow-sm">
-                        <img src="/img/movie-thumbnails/${item.thumbnail}" class="movie-card-thumbnail card-img-top" style="height: 225px;">
+                        <img src="${img}" class="movie-card-thumbnail card-img-top" style="height: 225px;">
                         <div class="card-body">
                             <a href="/movies/${item.url_slug}" class="h4">${item.title}</a>
                             <p class="card-text">${item.description}</p>
